@@ -19,15 +19,13 @@ ENV PATH ${PATH}:/home/${USER}/.local/bin
 RUN groupadd -g ${GID} -o ${GROUP} \
     &&  useradd -m -s /bin/bash -u ${UID} -g ${GID} ${USER}
 
-WORKDIR /home/${USER}/DiffusionPO/
+WORKDIR /home/${USER}/fat/
 
 # ppa for python
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get -y install python3-dev python3-venv python3-distutils python3-pip python-is-python3
 
-RUN python3 -m pip install torch torchvision torchaudio
-
-COPY requirements.txt /home/${USER}/DiffusionPO/
+COPY requirements.txt /home/${USER}/fat/
 RUN python3 -m pip install -r requirements.txt
 
 USER ${USER}
