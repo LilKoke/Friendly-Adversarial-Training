@@ -1,0 +1,32 @@
+version: "3"
+services:
+  app:
+    container_name: "fat"
+    build: 
+      context: .
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    user: "${UID}:${GID}"
+    shm_size: '2gb'
+
+    volumes:
+      - .:/home/user/fat
+      - /tmp/.X11-unix:/tmp/.X11-unix # display settings
+    tty: true
+    # entrypoint: 
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                capabilities: [gpu]
+    environment:
+      # display settings
+      - DISPLAY=$DISPLAY
+      - XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR
+      - LIBGL_ALWAYS_INDIRECT=1
+      - XDG_RUNTIME_DIR=1
+      # gpu settings
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all

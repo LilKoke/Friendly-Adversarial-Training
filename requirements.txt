@@ -1,0 +1,15 @@
+# torch
+# torchvision
+# tqdm
+# pandas
+# einops
+Pillow==6.2.2
+matplotlib>=3.5.3
+
+# develop
+# pytest
+# black
+# isort
+
+# onnx_opcounter
+# onnxscript
